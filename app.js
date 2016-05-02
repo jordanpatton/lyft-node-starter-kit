@@ -15,11 +15,17 @@ app.use(
     {maxAge: 31557600000}
   )
 );
-
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-cache');
     next();
+});
+
+/* routing */
+app.all('/oauth/redirect', function(req, res, next) {
+  console.log('/oauth/redirect');
+  res.redirect('/');
+  next();
 });
 
 /* initialization */
