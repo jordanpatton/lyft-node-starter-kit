@@ -2,12 +2,8 @@
 var express = require('express');
 var path = require('path');
 
-/* configuration: port */
-var CONFIG_PORT = parseInt((process.env.CONFIG_PORT || 3000), 10);
-if (isNaN(CONFIG_PORT)) {
-  console.log('invalid port:', CONFIG_PORT);
-  process.exit(1);
-}
+/* configuration */
+var config = require('./config/config');
 
 /* server definition */
 var app = express();
@@ -27,10 +23,10 @@ app.use(function(req, res, next) {
 });
 
 /* initialization */
-app.listen(CONFIG_PORT, function() {
+app.listen(config.PORT, function() {
   console.log(
     'lyft-node-starter-kit running' +
-    '\n' + ' => http://localhost:' + CONFIG_PORT +
+    '\n' + ' => http://localhost:' + config.PORT +
     '\n' + ' => [ ctrl + c ] to quit'
   );
 });
