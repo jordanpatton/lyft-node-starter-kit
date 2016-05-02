@@ -48,50 +48,32 @@ textarea {overflow:auto;}
 [type="search"] {-webkit-appearance:textfield;}
 [type="search"]::-webkit-search-cancel-button, [type="search"]::-webkit-search-decoration {-webkit-appearance:none;}
 ::-webkit-input-placeholder {color:inherit;opacity:0.54;}
-/* atomic styles */
-.block {display:block;}
-.circle {-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;}
-.inline-block {display:inline-block;}
-.text-transp {color:transparent;}
-.text-xs-center {text-align:center;}
-/* center trick */
-.c-t-o {display:table;}
-.c-t-m {display:table-cell;vertical-align:middle;}
-.c-t-i {margin-left:auto;margin-right:auto;}
-/* swipejs */
-.swipe {overflow:hidden;visibility:hidden;position:relative;}
-.swipe-wrap {overflow:hidden;position:relative;}
-.swipe-wrap > .swipe-slide {float:left;width:100%;position:relative;}
 /* document styles */
 html {font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
-body {width:100%;height:100%;overflow:hidden;margin:auto;padding:0;color:#000000;font-size:14px;line-height:1.4;}
+body {color:#000000;font-size:14px;}
+#map {width:100%;height:512px;}
         </style>
     </head>
     <body>
-        <div id="root">
-            <h1>test</h1>
-        </div>
+        <div id="map"></div>
         <script type="text/javascript">
 
-/**
- * Polyfill: CustomEvent support for IE 9, IE 10, IE 11.
- */
-(function(w, u, n, b, c, d) {
-  if (typeof w[n] !== 'function') {
-    var F = function(t, o) {
-      o = o || {};
-      o[b] = (typeof o[b] !== u) ? o[b] : false;
-      o[c] = (typeof o[c] !== u) ? o[c] : false;
-      o[d] = (typeof o[d] !== u) ? o[d] : undefined;
-      var e = w.document.createEvent(n);
-      e.initCustomEvent(t, o[b], o[c], o[d]);
-      return e;
-    };
-    F.prototype = w.Event.prototype;
-    w[n] = F;
-  }
-})(window, 'undefined', 'CustomEvent', 'bubbles', 'cancelable', 'detail');
+var gMap;
+function beginMapWorkflow() {
+  var gLatLng = new window.google.maps.LatLng(37.760516, -122.413126);
+  gMap = new window.google.maps.Map(document.getElementById('map'), {
+    center: gLatLng,
+    zoom: 13
+  });
+  var gMarker = new window.google.maps.Marker({
+      draggable: true,
+      map: gMap,
+      position: gLatLng,
+      title: 'Pickup Location'
+  });
+};
 
         </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=TODO_GOOGLE_API_KEY&callback=beginMapWorkflow"></script>
     </body>
 </html>
