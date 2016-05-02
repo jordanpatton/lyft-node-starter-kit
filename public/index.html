@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Lyft Node Starter Kit</title>
+        <meta name="author" content="Jordan Patton">
+        <meta http-equiv="Content-Language" content="en_US">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <style type="text/css">
+/* normalize.css v4.0.0 (8ed3140) | MIT License | github.com/necolas/normalize.css */
+html {font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+body {margin:0;}
+article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {display:block;}
+audio, canvas, progress, video {display:inline-block;}
+audio:not([controls]) {display:none;height:0;}
+progress {vertical-align:baseline;}
+template, [hidden] {display:none;}
+a {background-color:transparent;-webkit-text-decoration-skip:objects;}
+a:active, a:hover {outline-width:0;}
+abbr[title] {border-bottom:none;text-decoration:underline;text-decoration:underline dotted;}
+b, strong {font-weight:inherit;}
+b, strong {font-weight:bolder;}
+dfn {font-style:italic;}
+h1 {font-size:2em;margin:0.67em 0;}
+mark {background-color:#ff0;color:#000;}
+small {font-size:80%;}
+sub, sup {font-size:75%;line-height:0;position:relative;vertical-align:baseline;}
+sub {bottom:-0.25em;}
+sup {top:-0.5em;}
+img {border-style:none;}
+svg:not(:root) {overflow:hidden;}
+code, kbd, pre, samp {font-family:monospace, monospace;font-size:1em;}
+figure {margin:1em 40px;}
+hr {box-sizing:content-box;height:0;overflow:visible;}
+button, input, select, textarea {font:inherit;margin:0;}
+optgroup {font-weight:bold;}
+button, input {overflow:visible;}
+button, select {text-transform:none;}
+button, html [type="button"], [type="reset"], [type="submit"] {-webkit-appearance:button;}
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {border-style:none;padding:0;}
+button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {outline:1px dotted ButtonText;}
+fieldset {border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em;}
+legend {box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal;}
+textarea {overflow:auto;}
+[type="checkbox"], [type="radio"] {box-sizing:border-box;padding:0;}
+[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button {height:auto;}
+[type="search"] {-webkit-appearance:textfield;}
+[type="search"]::-webkit-search-cancel-button, [type="search"]::-webkit-search-decoration {-webkit-appearance:none;}
+::-webkit-input-placeholder {color:inherit;opacity:0.54;}
+/* atomic styles */
+.block {display:block;}
+.circle {-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;}
+.inline-block {display:inline-block;}
+.text-transp {color:transparent;}
+.text-xs-center {text-align:center;}
+/* center trick */
+.c-t-o {display:table;}
+.c-t-m {display:table-cell;vertical-align:middle;}
+.c-t-i {margin-left:auto;margin-right:auto;}
+/* swipejs */
+.swipe {overflow:hidden;visibility:hidden;position:relative;}
+.swipe-wrap {overflow:hidden;position:relative;}
+.swipe-wrap > .swipe-slide {float:left;width:100%;position:relative;}
+/* document styles */
+html {font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
+body {width:100%;height:100%;overflow:hidden;margin:auto;padding:0;color:#000000;font-size:14px;line-height:1.4;}
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <h1>test</h1>
+        </div>
+        <script type="text/javascript">
+
+/**
+ * Polyfill: CustomEvent support for IE 9, IE 10, IE 11.
+ */
+(function(w, u, n, b, c, d) {
+  if (typeof w[n] !== 'function') {
+    var F = function(t, o) {
+      o = o || {};
+      o[b] = (typeof o[b] !== u) ? o[b] : false;
+      o[c] = (typeof o[c] !== u) ? o[c] : false;
+      o[d] = (typeof o[d] !== u) ? o[d] : undefined;
+      var e = w.document.createEvent(n);
+      e.initCustomEvent(t, o[b], o[c], o[d]);
+      return e;
+    };
+    F.prototype = w.Event.prototype;
+    w[n] = F;
+  }
+})(window, 'undefined', 'CustomEvent', 'bubbles', 'cancelable', 'detail');
+
+        </script>
+    </body>
+</html>
