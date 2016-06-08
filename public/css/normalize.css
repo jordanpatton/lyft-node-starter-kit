@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
-        <title>Lyft Node Starter Kit</title>
-        <meta name="author" content="Jordan Patton">
-        <meta http-equiv="Content-Language" content="en_US">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-        <style type="text/css">
 /* normalize.css v4.0.0 (8ed3140) | MIT License | github.com/necolas/normalize.css */
 html {font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
 body {margin:0;}
@@ -48,32 +38,3 @@ textarea {overflow:auto;}
 [type="search"] {-webkit-appearance:textfield;}
 [type="search"]::-webkit-search-cancel-button, [type="search"]::-webkit-search-decoration {-webkit-appearance:none;}
 ::-webkit-input-placeholder {color:inherit;opacity:0.54;}
-/* document styles */
-html {font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;}
-body {color:#000000;font-size:14px;}
-#map {width:100%;height:512px;}
-        </style>
-    </head>
-    <body>
-        <div id="map"></div>
-        <script type="text/javascript">
-
-var gMap;
-function beginMapWorkflow() {
-  var gLatLng = new window.google.maps.LatLng(37.760516, -122.413126);
-  gMap = new window.google.maps.Map(document.getElementById('map'), {
-    center: gLatLng,
-    zoom: 13
-  });
-  var gMarker = new window.google.maps.Marker({
-      draggable: true,
-      map: gMap,
-      position: gLatLng,
-      title: 'Pickup Location'
-  });
-};
-
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=TODO_GOOGLE_API_KEY&callback=beginMapWorkflow"></script>
-    </body>
-</html>

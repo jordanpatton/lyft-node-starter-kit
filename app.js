@@ -2,13 +2,15 @@
 var express = require('express');
 var path = require('path');
 
-/* configuration */
+/* global configuration */
 var config = require('./config/config');
 
-/* server definition */
+/* express configuration */
 var app = express();
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-/* middleware */
+/* express middleware */
 app.use(
   express.static(
     path.join(__dirname, 'public'),
@@ -16,19 +18,22 @@ app.use(
   )
 );
 app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Cache-Control', 'no-cache');
-    next();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cache-Control', 'no-cache');
+  next();
 });
 
-/* routing */
+/* express routing */
+app.get('/', function(req, res, next) {
+  res.render('index', {GOOGLE_API_KEY: config.GOOGLE_API_KEY});
+  next();
+});
 app.all('/oauth/redirect', function(req, res, next) {
-  console.log('/oauth/redirect');
   res.redirect('/');
   next();
 });
 
-/* initialization */
+/* express initialization */
 app.listen(config.PORT, function() {
   console.log(
     'lyft-node-starter-kit running' +
