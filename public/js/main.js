@@ -38,6 +38,10 @@ function onGoogleMapsResponse() {
     function success(result) {
       gMap = initializeMap(result.coords.latitude, result.coords.longitude, window.document.getElementById('map'));
       gMarkerBegin = initializeMarker(result.coords.latitude, result.coords.longitude, gMap, 'A', 'Pick Up Location');
+      window.google.maps.event.addListener(gMarkerBegin, 'dragend', function (event) {
+        console.log('gMarkerBegin:dragend:lat', event.latLng.lat());
+        console.log('gMarkerBegin:dragend:lng', event.latLng.lng());
+      });
     },
     /* use default location */
     function failure() {
