@@ -1,14 +1,48 @@
+var xhr = new XMLHttpRequest();
 var gMap;
-function onGoogleMapsResponse() {
-  var gLatLng = new window.google.maps.LatLng(37.760516, -122.413126);
-  gMap = new window.google.maps.Map(document.getElementById('map'), {
+var gMarkerBegin;
+var gMarkerEnd;
+
+function getCurrentPosition(successCallback, failureCallback) {
+  if (window.navigator.geolocation) {
+    window.navigator.geolocation.getCurrentPosition(successCallback, failureCallback);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function initializeMap(lat, lng, element) {
+  var gLatLng = new window.google.maps.LatLng(lat, lng);
+  return new window.google.maps.Map(element, {
     center: gLatLng,
     zoom: 13
   });
-  var gMarker = new window.google.maps.Marker({
-      draggable: true,
-      map: gMap,
-      position: gLatLng,
-      title: 'Pickup Location'
+}
+
+function initializeMarker(lat, lng, map, label, title) {
+  var gLatLng = new window.google.maps.LatLng(lat, lng);
+  return new window.google.maps.Marker({
+    draggable: true,
+    label: label,
+    map: map,
+    position: gLatLng,
+    title: title
   });
-};
+}
+
+function onGoogleMapsResponse() {
+  /* attempt automatic geolocation */
+  getCurrentPosition(
+    /* use detected location */
+    function success(result) {
+      gMap = initializeMap(result.coords.latitude, result.coords.longitude, window.document.getElementById('map'));
+      gMarkerBegin = initializeMarker(result.coords.latitude, result.coords.longitude, gMap, 'A', 'Pick Up Location');
+    },
+    /* use default location */
+    function failure() {
+      gMap = initializeMap(37.760516, -122.413126, window.document.getElementById('map'));
+      gMarkerBegin = initializeMarker(37.760516, -122.413126, gMap, 'A', 'Pick Up Location');
+    }
+  );
+}
