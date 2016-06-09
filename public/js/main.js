@@ -3,6 +3,11 @@ var gMap;
 var gMarkerBegin;
 var gMarkerEnd;
 
+
+//=====================//
+// Convenience Methods //
+//=====================//
+
 function getCurrentPosition(successCallback, failureCallback) {
   if (window.navigator.geolocation) {
     window.navigator.geolocation.getCurrentPosition(successCallback, failureCallback);
@@ -12,10 +17,24 @@ function getCurrentPosition(successCallback, failureCallback) {
   }
 }
 
+function reverseGeocode(lat, lng, callback) {
+  var payload = {location: {lat: lat, lng: lng}};
+  var geocoder = new window.google.maps.Geocoder();
+  geocoder.geocode(payload, callback);
+}
+
+
+//=============//
+// Map Methods //
+//=============//
+
 function initializeMap(lat, lng, element) {
   var gLatLng = new window.google.maps.LatLng(lat, lng);
   return new window.google.maps.Map(element, {
     center: gLatLng,
+    mapTypeControl: false,
+    signInControl: false,
+    streetViewControl: false,
     zoom: 13
   });
 }
@@ -31,6 +50,16 @@ function initializeMarker(lat, lng, map, label, title) {
   });
 }
 
+function onMarkerBeginUpdate(event) {
+  reverseGeocode(event.latLng.lat(), event.latLng.lng(), function (results, status) {
+    if (status === window.google.maps.GeocoderStatus.OK && results.length) {
+      window.document.getElementById('locationBegin').value = results[0].formatted_address;
+    } else {
+      console.log('Failed to reverseGeocode:', lat, lng);
+    }
+  });
+}
+
 function onGoogleMapsResponse() {
   /* attempt automatic geolocation */
   getCurrentPosition(
@@ -38,10 +67,7 @@ function onGoogleMapsResponse() {
     function success(result) {
       gMap = initializeMap(result.coords.latitude, result.coords.longitude, window.document.getElementById('map'));
       gMarkerBegin = initializeMarker(result.coords.latitude, result.coords.longitude, gMap, 'A', 'Pick Up Location');
-      window.google.maps.event.addListener(gMarkerBegin, 'dragend', function (event) {
-        console.log('gMarkerBegin:dragend:lat', event.latLng.lat());
-        console.log('gMarkerBegin:dragend:lng', event.latLng.lng());
-      });
+      window.google.maps.event.addListener(gMarkerBegin, 'dragend', onMarkerBeginUpdate);
     },
     /* use default location */
     function failure() {
