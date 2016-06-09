@@ -138,6 +138,11 @@ window.app = (function (window, document) {
     );
   }
 
+
+  /*=======================================*/
+  /* Publicly-Exposed Properties & Methods */
+  /*=======================================*/
+
   return {
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
