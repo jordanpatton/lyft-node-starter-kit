@@ -1,5 +1,9 @@
+/*=================*/
+/* Document Styles */
+/*=================*/
+
 html {
-  font-family:"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 body {
@@ -40,5 +44,6 @@ body {
 }
 #controls ul > li > button {
   display: inline-block;
+  margin: 0 5px;
   padding: 10px;
 }

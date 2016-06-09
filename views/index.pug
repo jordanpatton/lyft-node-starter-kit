@@ -18,10 +18,25 @@ html
         form(id="controlsForm", name="controlsForm")
           ul
             li
-              input(type="text", id="locationBegin", name="locationBegin", placeholder="Pick Up Location", title="Pick Up Location")
+              input(
+                type="text",
+                id="locationBegin",
+                name="locationBegin",
+                onchange="javascript:app.onChangeLocationBegin.apply(this, arguments);",
+                placeholder="Pick Up Location",
+                title="Pick Up Location"
+              )
             li
-              input(type="text", id="locationEnd", name="locationEnd", placeholder="Drop Off Location", title="Drop Off Location")
+              input(
+                type="text",
+                id="locationEnd",
+                name="locationEnd",
+                onchange="javascript:app.onChangeLocationEnd.apply(this, arguments);",
+                placeholder="Drop Off Location",
+                title="Drop Off Location"
+              )
             li
-              button(type="submit", title="Request Ride") Request Ride
+              button(type="button", title="Get ETA") Get ETA
+              button(type="button", title="Request Ride") Request Ride
     script(src="/js/main.js")
-    script(async, defer, src="https://maps.googleapis.com/maps/api/js?callback=onGoogleMapsResponse&key="+GOOGLE_API_KEY)
+    script(async, defer, src="https://maps.googleapis.com/maps/api/js?callback=app.onGoogleMapsResponse&key="+GOOGLE_API_KEY)
