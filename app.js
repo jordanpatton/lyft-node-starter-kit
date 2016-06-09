@@ -24,6 +24,14 @@ app.use(function(req, res, next) {
 });
 
 /* express routing */
+app.get('/api/status', function(req, res, next) {
+  res.json({status: 'default', timestamp: Date.now()});
+  next();
+});
+app.get('/api/remote-status', function(req, res, next) {
+  res.json({status: 'tbd'});
+  next();
+});
 app.get('/', function(req, res, next) {
   res.render('index', {GOOGLE_API_KEY: config.GOOGLE_API_KEY});
   next();

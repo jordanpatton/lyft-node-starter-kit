@@ -44,6 +44,33 @@ window.app = (function (window, document) {
 
 
   /*=============*/
+  /* API Methods */
+  /*=============*/
+
+  function getLocalServerStatus(callback) {
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        console.log('local server status', window.JSON.parse(event.target.response));
+      }
+    });
+    xhr.open('GET', '/api/status', true);
+    xhr.send();
+  }
+
+  function getRemoteServerStatus(callback) {
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        console.log('remote server status', window.JSON.parse(event.target.response));
+      }
+    });
+    xhr.open('GET', '/api/remote-status', true);
+    xhr.send();
+  }
+
+
+  /*=============*/
   /* Map Methods */
   /*=============*/
 
@@ -144,6 +171,8 @@ window.app = (function (window, document) {
   /*=======================================*/
 
   return {
+    getLocalServerStatus:         getLocalServerStatus,
+    getRemoteServerStatus:        getRemoteServerStatus,
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
     onGoogleMapsResponse:         onGoogleMapsResponse

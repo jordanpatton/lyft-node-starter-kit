@@ -36,7 +36,25 @@ html
                 title="Drop Off Location"
               )
             li
-              button(type="button", title="Get ETA") Get ETA
-              button(type="button", title="Request Ride") Request Ride
+              button(
+                type="button",
+                title="Get ETA"
+              ) Get ETA
+              button(
+                type="button",
+                title="Request Ride"
+              ) Request Ride
+            li
+              button(
+                type="button",
+                onclick="javascript:app.getLocalServerStatus.apply(this, arguments);",
+                title="Get Local Server Status"
+              ) Get Local Server Status
+            li
+              button(
+                type="button",
+                onclick="javascript:app.getRemoteServerStatus.apply(this, arguments);",
+                title="Get Remote Server Status"
+              ) Get Remote Server Status
     script(src="/js/main.js")
     script(async, defer, src="https://maps.googleapis.com/maps/api/js?callback=app.onGoogleMapsResponse&key="+GOOGLE_API_KEY)
