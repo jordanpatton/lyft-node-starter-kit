@@ -1,6 +1,7 @@
 /* dependencies */
 var express = require('express');
-var path = require('path');
+var path    = require('path');
+var request = require('request');
 
 /* global configuration */
 var config = require('./config/config');
@@ -26,19 +27,22 @@ app.use(function(req, res, next) {
 /* express routing */
 app.get('/api/status', function(req, res, next) {
   res.json({status: 'default', timestamp: Date.now()});
-  next();
 });
 app.get('/api/remote-status', function(req, res, next) {
-  res.json({status: 'tbd'});
-  next();
+  request.get(config.LYFT_API_URI, function (error, response, body) {
+    if (error) {
+      res.json({status: 'error', error: error});
+    } else {
+      var timestamp = response.headers['date'] ? (new Date(response.headers['date'])).getTime() : '';
+      res.json({status: 'default', timestamp: timestamp});
+    }
+  });
 });
 app.get('/', function(req, res, next) {
   res.render('index', {GOOGLE_API_KEY: config.GOOGLE_API_KEY});
-  next();
 });
 app.all('/oauth/redirect', function(req, res, next) {
   res.redirect('/');
-  next();
 });
 
 /* express initialization */
