@@ -1,7 +1,11 @@
-var xhr = new XMLHttpRequest();
-var gMap;
-var gMarkerBegin;
-var gMarkerEnd;
+var defaultLatitude = 37.760516;
+var defaultLongitude = -122.413126;
+var mapElement = window.document.getElementById('map');
+var mapObject;
+var locationBeginElement = window.document.getElementById('locationBegin');
+var locationBeginMarker;
+var locationEndElement = window.document.getElementById('locationEnd');
+var locationEndMarker;
 
 
 //=====================//
@@ -29,9 +33,8 @@ function reverseGeocode(lat, lng, callback) {
 //=============//
 
 function initializeMap(lat, lng, element) {
-  var gLatLng = new window.google.maps.LatLng(lat, lng);
   return new window.google.maps.Map(element, {
-    center: gLatLng,
+    center: (new window.google.maps.LatLng(lat, lng)),
     mapTypeControl: false,
     signInControl: false,
     streetViewControl: false,
@@ -40,12 +43,11 @@ function initializeMap(lat, lng, element) {
 }
 
 function initializeMarker(lat, lng, map, label, title) {
-  var gLatLng = new window.google.maps.LatLng(lat, lng);
   return new window.google.maps.Marker({
     draggable: true,
     label: label,
     map: map,
-    position: gLatLng,
+    position: (new window.google.maps.LatLng(lat, lng)),
     title: title
   });
 }
@@ -53,7 +55,7 @@ function initializeMarker(lat, lng, map, label, title) {
 function onMarkerBeginUpdate(event) {
   reverseGeocode(event.latLng.lat(), event.latLng.lng(), function (results, status) {
     if (status === window.google.maps.GeocoderStatus.OK && results.length) {
-      window.document.getElementById('locationBegin').value = results[0].formatted_address;
+      locationBeginElement.value = results[0].formatted_address;
     } else {
       console.log('Failed to reverseGeocode:', lat, lng);
     }
@@ -65,14 +67,15 @@ function onGoogleMapsResponse() {
   getCurrentPosition(
     /* use detected location */
     function success(result) {
-      gMap = initializeMap(result.coords.latitude, result.coords.longitude, window.document.getElementById('map'));
-      gMarkerBegin = initializeMarker(result.coords.latitude, result.coords.longitude, gMap, 'A', 'Pick Up Location');
-      window.google.maps.event.addListener(gMarkerBegin, 'dragend', onMarkerBeginUpdate);
+      mapObject = initializeMap(result.coords.latitude, result.coords.longitude, mapElement);
+      locationBeginMarker = initializeMarker(result.coords.latitude, result.coords.longitude, mapObject, 'A', 'Pick Up Location');
+      window.google.maps.event.addListener(locationBeginMarker, 'dragend', onMarkerBeginUpdate);
     },
     /* use default location */
     function failure() {
-      gMap = initializeMap(37.760516, -122.413126, window.document.getElementById('map'));
-      gMarkerBegin = initializeMarker(37.760516, -122.413126, gMap, 'A', 'Pick Up Location');
+      mapObject = initializeMap(defaultLatitude, defaultLongitude, mapElement);
+      locationBeginMarker = initializeMarker(defaultLatitude, defaultLongitude, mapObject, 'A', 'Pick Up Location');
+      window.google.maps.event.addListener(locationBeginMarker, 'dragend', onMarkerBeginUpdate);
     }
   );
 }
