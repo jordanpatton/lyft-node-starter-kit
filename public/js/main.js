@@ -1,7 +1,7 @@
 /**
  * Immediately-Invoked Function Expression
  */
-var app = (function (window, document) {
+window.app = (function (window, document) {
 
   /*============*/
   /* Properties */
@@ -47,9 +47,9 @@ var app = (function (window, document) {
   /* Map Methods */
   /*=============*/
 
-  function initializeMap(lat, lng, element) {
+  function initializeMap(latitude, longitude, element) {
     return new window.google.maps.Map(element, {
-      center: (new window.google.maps.LatLng(lat, lng)),
+      center: (new window.google.maps.LatLng(latitude, longitude)),
       mapTypeControl: false,
       signInControl: false,
       streetViewControl: false,
@@ -57,12 +57,12 @@ var app = (function (window, document) {
     });
   }
 
-  function initializeMarker(lat, lng, map, label, title) {
+  function initializeMarker(latitude, longitude, map, label, title) {
     return new window.google.maps.Marker({
       draggable: true,
       label: label,
       map: map,
-      position: (new window.google.maps.LatLng(lat, lng)),
+      position: (new window.google.maps.LatLng(latitude, longitude)),
       title: title
     });
   }
@@ -72,64 +72,76 @@ var app = (function (window, document) {
   /* Event Handlers */
   /*================*/
 
-  function onChangeLocationBegin(event) {
+  function onChangeLocationBeginElement(event) {
     forwardGeocode(event.target.value, function (results, status) {
       if (status === window.google.maps.GeocoderStatus.OK && results.length) {
         locationBeginMarker.setPosition(new window.google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
       } else {
-        console.log('onChangeLocationBegin:forwardGeocode failed', results, status);
+        console.log('onChangeLocationBeginElement:forwardGeocode failed', results, status);
       }
     });
   }
 
-  function onChangeLocationEnd(event) {
-    console.log('onChangeLocationEnd', event.target.value);
+  function onChangeLocationEndElement(event) {
+    forwardGeocode(event.target.value, function (results, status) {
+      if (status === window.google.maps.GeocoderStatus.OK && results.length) {
+        locationEndMarker.setPosition(new window.google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
+      } else {
+        console.log('onChangeLocationEndElement:forwardGeocode failed', results, status);
+      }
+    });
   }
 
-  function onChangeMarkerBegin(event) {
+  function onChangeLocationBeginMarker(event) {
     reverseGeocode(event.latLng.lat(), event.latLng.lng(), function (results, status) {
       if (status === window.google.maps.GeocoderStatus.OK && results.length) {
         locationBeginElement.value = results[0].formatted_address;
       } else {
-        console.log('onChangeMarkerBegin:reverseGeocode failed', results, status);
+        console.log('onChangeLocationBeginMarker:reverseGeocode failed', results, status);
       }
     });
   }
 
-  function onChangeMarkerEnd(event) {
+  function onChangeLocationEndMarker(event) {
     reverseGeocode(event.latLng.lat(), event.latLng.lng(), function (results, status) {
       if (status === window.google.maps.GeocoderStatus.OK && results.length) {
         locationEndElement.value = results[0].formatted_address;
       } else {
-        console.log('onChangeMarkerEnd:reverseGeocode failed', results, status);
+        console.log('onChangeLocationEndMarker:reverseGeocode failed', results, status);
       }
     });
   }
 
+  function __onGoogleMapsResponseHelper(latitude, longitude) {
+    /* initialize mapObject & mapElement */
+    mapObject = initializeMap(latitude, longitude, mapElement);
+    /* initialize locationBeginMarker & locationBeginElement */
+    locationBeginMarker = initializeMarker(latitude, longitude, mapObject, 'A', 'Pick Up Location');
+    window.google.maps.event.addListener(locationBeginMarker, 'dragend', onChangeLocationBeginMarker);
+    window.google.maps.event.trigger(locationBeginMarker, 'dragend', {
+      latLng: {lat: function () {return latitude;}, lng: function () {return longitude;}}
+    });
+    /* initialize locationEndMarker & locationEndElement */
+    locationEndMarker = initializeMarker(latitude, longitude, mapObject, 'B', 'Drop Off Location');
+    window.google.maps.event.addListener(locationEndMarker, 'dragend', onChangeLocationEndMarker);
+    window.google.maps.event.trigger(locationEndMarker, 'dragend', {
+      latLng: {lat: function () {return latitude;}, lng: function () {return longitude;}}
+    });
+  }
   function onGoogleMapsResponse() {
     /* attempt automatic geolocation */
     getCurrentPosition(
       /* use detected location */
-      function success(result) {
-        mapObject = initializeMap(result.coords.latitude, result.coords.longitude, mapElement);
-        locationBeginMarker = initializeMarker(result.coords.latitude, result.coords.longitude, mapObject, 'A', 'Pick Up Location');
-        window.google.maps.event.addListener(locationBeginMarker, 'dragend', onChangeMarkerBegin);
-      },
+      function success(result) {__onGoogleMapsResponseHelper(result.coords.latitude, result.coords.longitude);},
       /* use default location */
-      function failure() {
-        mapObject = initializeMap(defaultLatitude, defaultLongitude, mapElement);
-        locationBeginMarker = initializeMarker(defaultLatitude, defaultLongitude, mapObject, 'A', 'Pick Up Location');
-        window.google.maps.event.addListener(locationBeginMarker, 'dragend', onChangeMarkerBegin);
-      }
+      function failure() {__onGoogleMapsResponseHelper(defaultLatitude, defaultLongitude);}
     );
   }
 
   return {
-    onChangeLocationBegin: onChangeLocationBegin,
-    onChangeLocationEnd:   onChangeLocationEnd,
-    onChangeMarkerBegin:   onChangeMarkerBegin,
-    onChangeMarkerEnd:     onChangeMarkerEnd,
-    onGoogleMapsResponse:  onGoogleMapsResponse
+    onChangeLocationBeginElement: onChangeLocationBeginElement,
+    onChangeLocationEndElement:   onChangeLocationEndElement,
+    onGoogleMapsResponse:         onGoogleMapsResponse
   };
 
 })(window, window.document);
