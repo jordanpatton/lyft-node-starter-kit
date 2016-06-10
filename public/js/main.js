@@ -15,11 +15,23 @@ window.app = (function (window, document) {
   var locationBeginMarker;
   var locationEndElement = document.getElementById('locationEnd');
   var locationEndMarker;
+  var logElement = document.getElementById('logTarget');
 
 
   /*=====================*/
   /* Convenience Methods */
   /*=====================*/
+
+  function log() {
+    /* log to browser console */
+    if (console && console.log) {console.log.apply(console, arguments);}
+    /* log to app console */
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0, l = args.length; i < l; i++) {
+      logElement.value = logElement.value + (logElement.value.length ? '\n' : '') + args[i];
+      logElement.scrollTop = logElement.scrollHeight;
+    }
+  }
 
   function getCurrentPosition(successCallback, failureCallback) {
     if (window.navigator.geolocation) {
@@ -51,7 +63,8 @@ window.app = (function (window, document) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
-        console.log('local server status', window.JSON.parse(event.target.response));
+        responseJson = window.JSON.parse(event.target.response);
+        log('local server status: ' + responseJson.status + ' @ ' + responseJson.timestamp);
       }
     });
     xhr.open('GET', '/api/status', true);
@@ -62,7 +75,8 @@ window.app = (function (window, document) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
-        console.log('remote server status', window.JSON.parse(event.target.response));
+        responseJson = window.JSON.parse(event.target.response);
+        log('remote server status: ' + responseJson.status + ' @ ' + responseJson.timestamp);
       }
     });
     xhr.open('GET', '/api/lyft/status', true);
@@ -73,7 +87,10 @@ window.app = (function (window, document) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
-        console.log('lyft eta', window.JSON.parse(event.target.response));
+        responseJson = window.JSON.parse(event.target.response);
+        for (var i = 0, l = responseJson.eta_estimates.length; i < l; i++) {
+          log(responseJson.eta_estimates[i].display_name + ': ' + responseJson.eta_estimates[i].eta_seconds + ' seconds');
+        }
       }
     });
     xhr.open('GET', '/api/lyft/eta?lat='+locationBeginMarker.position.lat()+'&lng='+locationBeginMarker.position.lng(), true);
@@ -115,7 +132,7 @@ window.app = (function (window, document) {
       if (status === window.google.maps.GeocoderStatus.OK && results.length) {
         locationBeginMarker.setPosition(new window.google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
       } else {
-        console.log('onChangeLocationBeginElement:forwardGeocode failed', results, status);
+        log('onChangeLocationBeginElement:forwardGeocode failed', results, status);
       }
     });
   }
@@ -125,7 +142,7 @@ window.app = (function (window, document) {
       if (status === window.google.maps.GeocoderStatus.OK && results.length) {
         locationEndMarker.setPosition(new window.google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
       } else {
-        console.log('onChangeLocationEndElement:forwardGeocode failed', results, status);
+        log('onChangeLocationEndElement:forwardGeocode failed', results, status);
       }
     });
   }
@@ -135,7 +152,7 @@ window.app = (function (window, document) {
       if (status === window.google.maps.GeocoderStatus.OK && results.length) {
         locationBeginElement.value = results[0].formatted_address;
       } else {
-        console.log('onChangeLocationBeginMarker:reverseGeocode failed', results, status);
+        log('onChangeLocationBeginMarker:reverseGeocode failed', results, status);
       }
     });
   }
@@ -145,7 +162,7 @@ window.app = (function (window, document) {
       if (status === window.google.maps.GeocoderStatus.OK && results.length) {
         locationEndElement.value = results[0].formatted_address;
       } else {
-        console.log('onChangeLocationEndMarker:reverseGeocode failed', results, status);
+        log('onChangeLocationEndMarker:reverseGeocode failed', results, status);
       }
     });
   }

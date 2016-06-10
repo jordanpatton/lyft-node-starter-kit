@@ -21,7 +21,7 @@ app.use(
     {maxAge: 31557600000}
   )
 );
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-cache');
   next();
@@ -33,15 +33,15 @@ app.get('/api/lyft/status', apiLyftController.getStatus);
 app.get('/api/lyft/eta',    apiLyftController.getEta);
 
 /* express routing: render routes */
-app.get('/', function(req, res, next) {
+app.get('/', function (req, res, next) {
   res.render('index', {GOOGLE_API_KEY: config.GOOGLE_API_KEY});
 });
-app.all('/oauth/redirect', function(req, res, next) {
+app.all('/oauth/redirect', function (req, res, next) {
   res.redirect('/');
 });
 
 /* express invocation */
-app.listen(config.PORT, function() {
+app.listen(config.PORT, function () {
   console.log([
     '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~',
     'lyft-node-starter-kit running',

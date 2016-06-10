@@ -49,7 +49,7 @@ var requestWithBearerToken = function (res, options, callback) {
 /* Route Handlers */
 /*================*/
 
-exports.getStatus = function(req, res, next) {
+exports.getStatus = function (req, res, next) {
   request.get(config.LYFT_API_URI + '/v1', function (error, response, body) {
     if (error) {
       res.json({status: 'error', error: error});
@@ -60,7 +60,7 @@ exports.getStatus = function(req, res, next) {
   });
 };
 
-exports.getEta = function(req, res, next) {
+exports.getEta = function (req, res, next) {
   requestWithBearerToken(res, {
     method: 'GET',
     uri: config.LYFT_API_URI + '/v1/eta',
