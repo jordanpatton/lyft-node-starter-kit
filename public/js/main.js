@@ -47,7 +47,7 @@ window.app = (function (window, document) {
   /* API Methods */
   /*=============*/
 
-  function getLocalServerStatus(callback) {
+  function getApiStatus(callback) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
@@ -58,7 +58,7 @@ window.app = (function (window, document) {
     xhr.send();
   }
 
-  function getRemoteServerStatus(callback) {
+  function getApiLyftStatus(callback) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
@@ -69,7 +69,7 @@ window.app = (function (window, document) {
     xhr.send();
   }
 
-  function getLyftEta(callback) {
+  function getApiLyftEta(callback) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
@@ -182,9 +182,9 @@ window.app = (function (window, document) {
   /*=======================================*/
 
   return {
-    getLocalServerStatus:         getLocalServerStatus,
-    getRemoteServerStatus:        getRemoteServerStatus,
-    getLyftEta:                   getLyftEta,
+    getApiStatus:                 getApiStatus,
+    getApiLyftStatus:             getApiLyftStatus,
+    getApiLyftEta:                getApiLyftEta,
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
     onGoogleMapsResponse:         onGoogleMapsResponse

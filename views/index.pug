@@ -38,7 +38,7 @@ html
             li
               button(
                 type="button",
-                onclick="javascript:app.getLyftEta();",
+                onclick="javascript:app.getApiLyftEta();",
                 title="Get ETA"
               ) Get ETA
               button(
@@ -48,13 +48,13 @@ html
             li
               button(
                 type="button",
-                onclick="javascript:app.getLocalServerStatus.apply(this, arguments);",
+                onclick="javascript:app.getApiStatus();",
                 title="Get Local Server Status"
               ) Get Local Server Status
             li
               button(
                 type="button",
-                onclick="javascript:app.getRemoteServerStatus.apply(this, arguments);",
+                onclick="javascript:app.getApiLyftStatus();",
                 title="Get Remote Server Status"
               ) Get Remote Server Status
     script(src="/js/main.js")
