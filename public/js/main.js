@@ -65,7 +65,18 @@ window.app = (function (window, document) {
         console.log('remote server status', window.JSON.parse(event.target.response));
       }
     });
-    xhr.open('GET', '/api/remote-status', true);
+    xhr.open('GET', '/api/lyft/status', true);
+    xhr.send();
+  }
+
+  function getLyftEta(callback) {
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        console.log('lyft eta', window.JSON.parse(event.target.response));
+      }
+    });
+    xhr.open('GET', '/api/lyft/eta?lat='+locationBeginMarker.position.lat()+'&lng='+locationBeginMarker.position.lng(), true);
     xhr.send();
   }
 
@@ -173,6 +184,7 @@ window.app = (function (window, document) {
   return {
     getLocalServerStatus:         getLocalServerStatus,
     getRemoteServerStatus:        getRemoteServerStatus,
+    getLyftEta:                   getLyftEta,
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
     onGoogleMapsResponse:         onGoogleMapsResponse
