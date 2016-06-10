@@ -42,11 +42,11 @@ app.all('/oauth/redirect', function(req, res, next) {
 
 /* express invocation */
 app.listen(config.PORT, function() {
-  console.log(
-    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'       + '\n' +
-    'lyft-node-starter-kit running'       + '\n' +
-    ' => http://localhost:' + config.PORT + '\n' +
-    ' => [ ctrl + c ] to quit'            + '\n' +
+  console.log([
+    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~',
+    'lyft-node-starter-kit running',
+    ' => http://localhost:' + config.PORT,
+    ' => [ ctrl + c ] to quit',
     '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-  );
+  ].join('\n'));
 });
