@@ -1,5 +1,15 @@
+/* dependencies */
+var nedb = require('nedb');
+var path = require('path');
+
 /* global configuration */
 var config = require('../../../config/config');
+
+/* database initialization */
+var databaseLyftAuthorizations = new nedb({
+  filename: path.join(__dirname, '../../../database/lyft/authorizations.db'),
+  autoload: true
+});
 
 
 /*================*/
@@ -7,21 +17,33 @@ var config = require('../../../config/config');
 /*================*/
 
 exports.handleAuthorization = function (req, res, next) {
+  console.log('===== handleAuthorization =====');
   var state = Date.now();
-  res.redirect(
-    config.LYFT_API_URI + '/oauth/authorize'
-    + '?client_id='     + config.LYFT_CLIENT_ID
-    + '&response_type=' + 'code'
-    + '&scope='         + 'offline%20public%20profile%20rides.read%20rides.request'
-    + '&state='         + state
-  );
+  databaseLyftAuthorizations.insert({
+    'state': state
+  }, function (err, doc) {
+    console.log('err', err);
+    console.log('doc', doc);
+    res.redirect(
+      config.LYFT_API_URI + '/oauth/authorize'
+      + '?client_id='     + config.LYFT_CLIENT_ID
+      + '&response_type=' + 'code'
+      + '&scope='         + 'offline%20public%20profile%20rides.read%20rides.request'
+      + '&state='         + state
+    );
+  });
 };
 
 exports.handleLanding = function (req, res, next) {
-  console.log('===== /oauth/lyft/landing =====');
-  console.log('code', req.query.code);
-  console.log('state', req.query.state);
-  res.redirect('/');
+  console.log('===== handleLanding =====');
+  databaseLyftAuthorizations.insert({
+    'code': req.query.code,
+    'state': req.query.state
+  }, function (err, doc) {
+    console.log('err', err);
+    console.log('doc', doc);
+    res.redirect('/');
+  });
 };
 
 exports.handleRevocation = function (req, res, next) {
