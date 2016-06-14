@@ -7,8 +7,14 @@ var config = require('../../../config/config');
 /*================*/
 
 exports.handleAuthorization = function (req, res, next) {
-  console.log('===== /oauth/lyft/authorization =====');
-  res.redirect('/');
+  var state = Date.now();
+  res.redirect(
+    config.LYFT_API_URI + '/oauth/authorize'
+    + '?client_id='     + config.LYFT_CLIENT_ID
+    + '&response_type=' + 'code'
+    + '&scope='         + 'offline%20public%20profile%20rides.read%20rides.request'
+    + '&state='         + state
+  );
 };
 
 exports.handleLanding = function (req, res, next) {
@@ -17,6 +23,7 @@ exports.handleLanding = function (req, res, next) {
 };
 
 exports.handleRevocation = function (req, res, next) {
-  console.log('===== /oauth/lyft/revocation =====');
-  res.redirect('/');
+  res.redirect(
+    config.LYFT_WWW_URI + '/connected-services'
+  );
 };

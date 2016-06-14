@@ -42,7 +42,9 @@ app.all('/oauth/lyft/revocation',    oauthLyftController.handleRevocation);
 
 /* express routing: render */
 app.get('/', function (req, res, next) {
-  res.render('index', {GOOGLE_API_KEY: config.GOOGLE_API_KEY});
+  res.render('index', {
+    GOOGLE_API_KEY: config.GOOGLE_API_KEY
+  });
 });
 
 /* express invocation */

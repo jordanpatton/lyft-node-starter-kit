@@ -11,7 +11,8 @@ var CONFIG_USE_SANDBOX =
 
 module.exports = {
   GOOGLE_API_KEY:     process.env.CONFIG_GOOGLE_API_KEY     || null,
-  LYFT_API_URI:       process.env.CONFIG_LYFT_API_URL       || 'https://api.lyft.com',
+  LYFT_API_URI:       process.env.CONFIG_LYFT_API_URI       || 'https://api.lyft.com',
+  LYFT_WWW_URI:       process.env.CONFIG_LYFT_WWW_URI       || 'https://www.lyft.com',
   LYFT_CLIENT_ID:     process.env.CONFIG_LYFT_CLIENT_ID     || null,
   LYFT_CLIENT_SECRET: process.env.CONFIG_LYFT_CLIENT_SECRET || null,
   PORT:               CONFIG_PORT,
