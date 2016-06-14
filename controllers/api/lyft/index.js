@@ -50,17 +50,6 @@ var requestWithBearerToken = function (res, options, callback) {
 /* Route Handlers */
 /*================*/
 
-exports.getStatus = function (req, res, next) {
-  request.get(config.LYFT_API_URI + '/v1', function (error, response, body) {
-    if (error) {
-      res.json({status: 'error', error: error});
-    } else {
-      var timestamp = response.headers['date'] ? (new Date(response.headers['date'])).getTime() : '';
-      res.json({status: 'default', timestamp: timestamp});
-    }
-  });
-};
-
 exports.getEta = function (req, res, next) {
   requestWithBearerToken(res, {
     method: 'GET',
@@ -84,5 +73,16 @@ exports.getRides = function (req, res, next) {
     uri: config.LYFT_API_URI + '/v1/rides',
     json: true,
     qs: {start_time: req.query.start_time, end_time: req.query.end_time}
+  });
+};
+
+exports.getStatus = function (req, res, next) {
+  request.get(config.LYFT_API_URI + '/v1', function (error, response, body) {
+    if (error) {
+      res.json({status: 'error', error: error});
+    } else {
+      var timestamp = response.headers['date'] ? (new Date(response.headers['date'])).getTime() : '';
+      res.json({status: 'default', timestamp: timestamp});
+    }
   });
 };

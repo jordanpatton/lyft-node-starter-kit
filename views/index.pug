@@ -43,6 +43,17 @@ html
             li
               button(
                 type="button",
+                onclick="javascript:window.location='/oauth/lyft/authorization';",
+                title="Authorize App"
+              ) Authorize App
+              button(
+                type="button",
+                onclick="javascript:window.location='/oauth/lyft/revocation';",
+                title="Revoke App"
+              ) Revoke App
+            li
+              button(
+                type="button",
                 title="Request Ride"
               ) Request Ride
             li

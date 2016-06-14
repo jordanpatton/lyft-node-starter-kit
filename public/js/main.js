@@ -71,18 +71,6 @@ window.app = (function (window, document) {
     xhr.send();
   }
 
-  function getApiLyftStatus(callback) {
-    var xhr = new window.XMLHttpRequest();
-    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
-      if (event.target.readyState === 4) {
-        responseJson = window.JSON.parse(event.target.response);
-        log('remote server status: ' + responseJson.status + ' @ ' + responseJson.timestamp);
-      }
-    });
-    xhr.open('GET', '/api/lyft/status', true);
-    xhr.send();
-  }
-
   function getApiLyftEta(callback) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
@@ -122,6 +110,18 @@ window.app = (function (window, document) {
       }
     });
     xhr.open('GET', '/api/lyft/rides?start_time='+start_time+'&end_time='+end_time, true);
+    xhr.send();
+  }
+
+  function getApiLyftStatus(callback) {
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        responseJson = window.JSON.parse(event.target.response);
+        log('remote server status: ' + responseJson.status + ' @ ' + responseJson.timestamp);
+      }
+    });
+    xhr.open('GET', '/api/lyft/status', true);
     xhr.send();
   }
 
@@ -228,10 +228,10 @@ window.app = (function (window, document) {
 
   return {
     getApiStatus:                 getApiStatus,
-    getApiLyftStatus:             getApiLyftStatus,
     getApiLyftEta:                getApiLyftEta,
     getApiLyftProfile:            getApiLyftProfile,
     getApiLyftRides:              getApiLyftRides,
+    getApiLyftStatus:             getApiLyftStatus,
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
     onGoogleMapsResponse:         onGoogleMapsResponse
