@@ -10,9 +10,9 @@ window.AppComponent = (function (window, document, log) {
   /* none at this time */
 
 
-  /*=========*/
-  /* Methods */
-  /*=========*/
+  /*=============*/
+  /* API Methods */
+  /*=============*/
 
   function getApiStatus(callback) {
     var xhr = new window.XMLHttpRequest();
@@ -25,6 +25,11 @@ window.AppComponent = (function (window, document, log) {
     xhr.open('GET', '/api/status', true);
     xhr.send();
   }
+
+
+  /*==================*/
+  /* Lyft API Methods */
+  /*==================*/
 
   function getApiLyftEta(latitude, longitude, callback) {
     var xhr = new window.XMLHttpRequest();
