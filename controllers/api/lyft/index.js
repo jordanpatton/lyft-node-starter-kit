@@ -68,3 +68,12 @@ exports.getEta = function (req, res, next) {
     qs: {lat: req.query.lat, lng: req.query.lng}
   });
 };
+
+exports.getRides = function (req, res, next) {
+  requestWithBearerToken(res, {
+    method: 'GET',
+    uri: config.LYFT_API_URI + '/v1/rides',
+    json: true,
+    qs: {start_time: req.query.start_time, end_time: req.query.end_time}
+  });
+};

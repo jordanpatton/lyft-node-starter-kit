@@ -43,13 +43,19 @@ html
             li
               button(
                 type="button",
+                title="Request Ride"
+              ) Request Ride
+            li
+              button(
+                type="button",
                 onclick="javascript:app.getApiLyftEta();",
                 title="Get ETA"
               ) Get ETA
               button(
                 type="button",
-                title="Request Ride"
-              ) Request Ride
+                onclick="javascript:app.getApiLyftRides();",
+                title="Get Ride History"
+              ) Get Ride History
             li
               button(
                 type="button",

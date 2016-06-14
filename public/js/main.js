@@ -97,6 +97,22 @@ window.app = (function (window, document) {
     xhr.send();
   }
 
+  function getApiLyftRides(callback) {
+    var start_time = (new Date(Date.now() - (30 * 24 * 60 * 60 * 1000))).toISOString();
+    var end_time = (new Date()).toISOString();
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        responseJson = window.JSON.parse(event.target.response);
+        for (var i = 0, l = responseJson.ride_history.length; i < l; i++) {
+          log(responseJson.ride_history[i].ride_id + ': ' + responseJson.ride_history[i].status);
+        }
+      }
+    });
+    xhr.open('GET', '/api/lyft/rides?start_time='+start_time+'&end_time='+end_time, true);
+    xhr.send();
+  }
+
 
   /*=============*/
   /* Map Methods */
@@ -202,6 +218,7 @@ window.app = (function (window, document) {
     getApiStatus:                 getApiStatus,
     getApiLyftStatus:             getApiLyftStatus,
     getApiLyftEta:                getApiLyftEta,
+    getApiLyftRides:              getApiLyftRides,
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
     onGoogleMapsResponse:         onGoogleMapsResponse
