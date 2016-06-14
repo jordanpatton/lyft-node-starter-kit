@@ -19,6 +19,8 @@ exports.handleAuthorization = function (req, res, next) {
 
 exports.handleLanding = function (req, res, next) {
   console.log('===== /oauth/lyft/landing =====');
+  console.log('code', req.query.code);
+  console.log('state', req.query.state);
   res.redirect('/');
 };
 
