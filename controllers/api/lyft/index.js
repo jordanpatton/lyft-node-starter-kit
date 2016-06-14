@@ -19,7 +19,8 @@ var requestWithBearerToken = function (res, options, callback) {
       password: (config.USE_SANDBOX ? 'SANDBOX-' : '') + config.LYFT_CLIENT_SECRET
     },
     json: {
-      grant_type: 'client_credentials'
+      grant_type: 'client_credentials',
+      scope: 'offline public profile rides.read rides.request'
     }
   }, function (preAuthError, preAuthResponse, preAuthBody) {
     if (preAuthError) {
@@ -66,6 +67,14 @@ exports.getEta = function (req, res, next) {
     uri: config.LYFT_API_URI + '/v1/eta',
     json: true,
     qs: {lat: req.query.lat, lng: req.query.lng}
+  });
+};
+
+exports.getProfile = function (req, res, next) {
+  requestWithBearerToken(res, {
+    method: 'GET',
+    uri: config.LYFT_API_URI + '/v1/profile',
+    json: true
   });
 };
 

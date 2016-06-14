@@ -28,10 +28,11 @@ app.use(function (req, res, next) {
 });
 
 /* express routing: api routes */
-app.get('/api/status',      apiController.getStatus);
-app.get('/api/lyft/status', apiLyftController.getStatus);
-app.get('/api/lyft/eta',    apiLyftController.getEta);
-app.get('/api/lyft/rides',  apiLyftController.getRides);
+app.get('/api/status',       apiController.getStatus);
+app.get('/api/lyft/status',  apiLyftController.getStatus);
+app.get('/api/lyft/eta',     apiLyftController.getEta);
+app.get('/api/lyft/profile', apiLyftController.getProfile);
+app.get('/api/lyft/rides',   apiLyftController.getRides);
 
 /* express routing: render routes */
 app.get('/', function (req, res, next) {

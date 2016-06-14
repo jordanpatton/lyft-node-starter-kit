@@ -97,6 +97,18 @@ window.app = (function (window, document) {
     xhr.send();
   }
 
+  function getApiLyftProfile(callback) {
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        responseJson = window.JSON.parse(event.target.response);
+        log('id: ' + responseJson.id);
+      }
+    });
+    xhr.open('GET', '/api/lyft/profile', true);
+    xhr.send();
+  }
+
   function getApiLyftRides(callback) {
     var start_time = (new Date(Date.now() - (30 * 24 * 60 * 60 * 1000))).toISOString();
     var end_time = (new Date()).toISOString();
@@ -218,6 +230,7 @@ window.app = (function (window, document) {
     getApiStatus:                 getApiStatus,
     getApiLyftStatus:             getApiLyftStatus,
     getApiLyftEta:                getApiLyftEta,
+    getApiLyftProfile:            getApiLyftProfile,
     getApiLyftRides:              getApiLyftRides,
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
