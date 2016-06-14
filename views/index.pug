@@ -27,7 +27,7 @@ html
                 type="text",
                 id="locationBegin",
                 name="locationBegin",
-                onchange="javascript:window.MapComponent.onChangeLocationBeginElement.apply(this, arguments);",
+                onchange="javascript:window.MapComponent.onChangeLocationBeginElement.apply(this, arguments);return false;",
                 placeholder="Pick Up Location",
                 title="Pick Up Location"
               )
@@ -36,52 +36,53 @@ html
                 type="text",
                 id="locationEnd",
                 name="locationEnd",
-                onchange="javascript:window.MapComponent.onChangeLocationEndElement.apply(this, arguments);",
+                onchange="javascript:window.MapComponent.onChangeLocationEndElement.apply(this, arguments);return false;",
                 placeholder="Drop Off Location",
                 title="Drop Off Location"
               )
             li
               button(
                 type="button",
-                onclick="javascript:window.location='/oauth/lyft/authorization';",
+                onclick="javascript:window.location='/oauth/lyft/authorization';return false;",
                 title="Authorize App"
               ) Authorize App
               button(
                 type="button",
-                onclick="javascript:window.location='/oauth/lyft/revocation';",
+                onclick="javascript:window.location='/oauth/lyft/revocation';return false;",
                 title="Revoke App"
               ) Revoke App
             li
               button(
                 type="button",
+                onclick="javascript:console.log('TODO: Request Ride');return false;",
                 title="Request Ride"
               ) Request Ride
             li
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftEta(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);",
+                onclick="javascript:window.AppComponent.getApiLyftEta(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
                 title="Get ETA"
               ) Get ETA
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftProfile();",
+                onclick="javascript:window.AppComponent.getApiLyftProfile();return false;",
                 title="Get User Profile"
               ) Get User Profile
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftRides();",
+                onclick="javascript:window.AppComponent.getApiLyftRides();return false;",
                 title="Get Ride History"
               ) Get Ride History
             li
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiStatus();",
+                onclick="javascript:window.AppComponent.getApiStatus();return false;",
                 title="Get Local Server Status"
               ) Get Local Server Status
             li
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftStatus();",
+                onclick="javascript:window.AppComponent.getApiLyftStatus();return false;",
                 title="Get Remote Server Status"
               ) Get Remote Server Status
     script(src="/js/LogComponent.js")
