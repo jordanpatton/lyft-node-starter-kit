@@ -1,12 +1,12 @@
 /* dependencies */
-var nedb = require('nedb');
+var NeDB = require('nedb');
 var path = require('path');
 
 /* global configuration */
 var config = require('../../../config/config');
 
 /* database initialization */
-var databaseLyftAuthorizations = new nedb({
+var databaseLyftAuthorizations = new NeDB({
   filename: path.join(__dirname, '../../../databases/lyft/authorizations.db'),
   autoload: true
 });
