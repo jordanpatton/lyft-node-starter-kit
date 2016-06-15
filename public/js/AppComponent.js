@@ -31,8 +31,10 @@ window.AppComponent = (function (window, document, log) {
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
         responseJson = window.JSON.parse(event.target.response);
-        log('hasLyftAuthorizationCode: ' + responseJson.user.hasLyftAuthorizationCode);
-        log('lyftStatus: ' + responseJson.user.lyftStatus);
+        for (var i = 0, l = responseJson.users.length; i < l; i++) {
+          log('hasLyftAuthorizationCode: ' + responseJson.users[i].hasLyftAuthorizationCode);
+          log('lyftStatus: ' + responseJson.users[i].lyftStatus);
+        }
       }
     });
     xhr.open('GET', '/api/users', true);
