@@ -1,6 +1,8 @@
 /* dependencies */
-var express = require('express');
-var path    = require('path');
+var express          = require('express');
+var expressSession   = require('express-session');
+var NeDBSessionStore = require('nedb-session-store');
+var path             = require('path');
 
 /* global configuration */
 var config = require('./config/config');
@@ -16,6 +18,21 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 /* express middleware */
+app.use(
+  expressSession({
+    secret: config.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      maxAge: 365 * 24 * 60 * 60 * 1000 /* 1 year */
+    },
+    store: new NeDBSessionStore({
+      filename: path.join(__dirname, 'databases/sessions.db')
+    })
+  });
+);
 app.use(
   express.static(
     path.join(__dirname, 'public'),
