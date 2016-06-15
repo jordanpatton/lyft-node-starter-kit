@@ -1,7 +1,7 @@
 /* dependencies */
 var express          = require('express');
 var expressSession   = require('express-session');
-var NeDBSessionStore = require('nedb-session-store');
+var NeDBSessionStore = require('nedb-session-store')(expressSession);
 var path             = require('path');
 
 /* global configuration */
@@ -31,7 +31,7 @@ app.use(
     store: new NeDBSessionStore({
       filename: path.join(__dirname, 'databases/sessions.db')
     })
-  });
+  })
 );
 app.use(
   express.static(
