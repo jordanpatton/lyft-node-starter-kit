@@ -25,7 +25,7 @@ exports.handleLanding = function (req, res, next) {
   /* compare session state to returned state */
   if (req.session.state === req.query.state) {
     /* state is valid; save code */
-    req.session.lyftCode = req.query.code;
+    req.session.lyftAuthorizationCode = req.query.code;
     /* NOTE:
      * You should store the code in a secure database. Keeping the authorization code in
      * the session alone is not particularly secure, and when it expires the user will
