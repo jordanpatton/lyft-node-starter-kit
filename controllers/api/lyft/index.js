@@ -79,10 +79,10 @@ exports.getRides = function (req, res, next) {
 exports.getStatus = function (req, res, next) {
   request.get(config.LYFT_API_URI + '/v1', function (error, response, body) {
     if (error) {
-      res.json({status: 'error', error: error});
+      res.json({meta: {success: false, error: error}, status: 'unhappy'});
     } else {
       var timestamp = response.headers['date'] ? (new Date(response.headers['date'])).getTime() : '';
-      res.json({status: 'default', timestamp: timestamp});
+      res.json({meta: {success: true, timestamp: timestamp}, status: 'happy'});
     }
   });
 };
