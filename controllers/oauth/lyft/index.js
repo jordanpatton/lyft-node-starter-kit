@@ -7,7 +7,7 @@ var config = require('../../../config/config');
 
 /* database initialization */
 var databaseLyftAuthorizations = new nedb({
-  filename: path.join(__dirname, '../../../database/lyft/authorizations.db'),
+  filename: path.join(__dirname, '../../../databases/lyft/authorizations.db'),
   autoload: true
 });
 
