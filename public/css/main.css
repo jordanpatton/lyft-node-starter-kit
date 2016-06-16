@@ -5,10 +5,21 @@
 html {
   font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
-
 body {
   color: #000000;
   font-size: 14px;
+}
+input[type="text"] {
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  padding: 5px;
+  border: none;
+}
+button[type="button"] {
+  display: inline-block;
+  margin: 0;
+  padding: 10px;
 }
 
 .container {
@@ -41,38 +52,34 @@ body {
   font-family: "Courier New", Courier, "Lucida Console", Monaco, monospace;
   font-size: 12px;
   font-weight: normal;
+  border: none;
 }
 
-#controls {
+#locations, #controls {
   box-sizing: border-box;
   width: 100%;
   padding: 5px;
-  background-color: #EEEEEE;
+  background-color: #CCCCCC;
 }
-#controls > h3 {
+#locations > h3, #controls > h3 {
   margin: 0;
   padding: 0;
 }
-#controls ul {
+form ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-#controls ul > li {
+form ul > li {
   display: block;
-  margin: 5px 0 0 0;
+  margin: 0;
   padding: 0;
   text-align: right;
 }
-#controls ul > li > input[type="text"] {
-  box-sizing: border-box;
-  display: block;
+form ul > li > input[type="text"] {
   width: 100%;
-  margin: 0;
-  padding: 5px;
+  margin: 5px 0;
 }
-#controls ul > li > button {
-  display: inline-block;
-  margin: 0 0 0 5px;
-  padding: 10px;
+form ul > li > button[type="button"] {
+  margin: 5px;
 }
