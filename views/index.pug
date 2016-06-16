@@ -94,4 +94,4 @@ html
     script(src="/js/LogComponent.js")
     script(src="/js/MapComponent.js")
     script(src="/js/AppComponent.js")
-    script(async, defer, src="https://maps.googleapis.com/maps/api/js?callback=window.MapComponent.onGoogleMapsResponse&key="+GOOGLE_API_KEY)
+    script(async, defer, src="https://maps.googleapis.com/maps/api/js?callback=window.MapComponent.onGoogleMapsResponse"+(GOOGLE_API_KEY?("&key="+GOOGLE_API_KEY):""))
