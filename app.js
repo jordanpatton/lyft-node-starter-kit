@@ -50,6 +50,7 @@ app.get('/api/status', apiController.getStatus);
 app.get('/api/users',  apiController.getUsers);
 
 /* express routing: lyft api */
+app.get('/api/lyft/drivers', apiLyftController.getDrivers);
 app.get('/api/lyft/eta',     apiLyftController.getEta);
 app.get('/api/lyft/profile', apiLyftController.getProfile);
 app.get('/api/lyft/rides',   apiLyftController.getRides);

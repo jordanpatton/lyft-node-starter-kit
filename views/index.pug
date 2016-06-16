@@ -64,6 +64,11 @@ html
             li
               button(
                 type="button",
+                onclick="javascript:window.AppComponent.getApiLyftDrivers(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
+                title="Get Nearby Drivers"
+              ) Get Nearby Drivers
+              button(
+                type="button",
                 onclick="javascript:window.AppComponent.getApiLyftEta(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
                 title="Get ETA"
               ) Get ETA

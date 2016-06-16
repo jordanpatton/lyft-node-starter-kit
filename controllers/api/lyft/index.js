@@ -50,6 +50,15 @@ var requestWithBearerToken = function (res, options, callback) {
 /* Route Handlers */
 /*================*/
 
+exports.getDrivers = function (req, res, next) {
+  requestWithBearerToken(res, {
+    method: 'GET',
+    uri: config.LYFT_API_URI + '/v1/drivers',
+    json: true,
+    qs: {lat: req.query.lat, lng: req.query.lng}
+  });
+};
+
 exports.getEta = function (req, res, next) {
   requestWithBearerToken(res, {
     method: 'GET',

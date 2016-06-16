@@ -46,6 +46,21 @@ window.AppComponent = (function (window, document, log) {
   /* Lyft API Methods */
   /*==================*/
 
+  function getApiLyftDrivers(latitude, longitude, callback) {
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        responseJson = window.JSON.parse(event.target.response);
+        console.log(responseJson);
+        for (var i = 0, l = responseJson.nearby_drivers.length; i < l; i++) {
+          log(responseJson.nearby_drivers[i].ride_type + ': ' + responseJson.nearby_drivers[i].drivers.length + ' drivers');
+        }
+      }
+    });
+    xhr.open('GET', '/api/lyft/drivers?lat='+latitude+'&lng='+longitude, true);
+    xhr.send();
+  }
+
   function getApiLyftEta(latitude, longitude, callback) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
@@ -108,6 +123,7 @@ window.AppComponent = (function (window, document, log) {
   return {
     getApiStatus:      getApiStatus,
     getApiUsers:       getApiUsers,
+    getApiLyftDrivers: getApiLyftDrivers,
     getApiLyftEta:     getApiLyftEta,
     getApiLyftProfile: getApiLyftProfile,
     getApiLyftRides:   getApiLyftRides,
