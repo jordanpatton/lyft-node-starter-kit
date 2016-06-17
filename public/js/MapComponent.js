@@ -83,6 +83,61 @@ window.MapComponent = (function (window, document, log) {
     });
   }
 
+  /**
+   * renderMarkerAtLocations (and renderMarkerAtLocationsHelper)
+   * Renders a marker at several different locations (emulating movement).
+   * @param {Object} marker A google.maps.marker.
+   * @param {Array} locations An array of lat/lng pair objects in sequential order.
+   * @param {integer} delayInMilliseconds The delay between frames in milliseconds.
+   * @returns {boolean} Whether or not the input values are valid.
+   */
+  function renderMarkerAtLocationsHelper(marker, locations, delayInMilliseconds) {
+    if (locations.length) {
+      /* render next location */
+      var location = locations.shift();
+      marker.setPosition(new window.google.maps.LatLng(location.lat, location.lng));
+      if (!marker.getMap()) {marker.setMap(mapObject);}
+      /* after delay, recurse with shifted array */
+      window.setTimeout(function () {
+        renderMarkerAtLocationsHelper(marker, locations, delayInMilliseconds);
+      }, delayInMilliseconds);
+    } else {
+      /* all locations have been rendered, so remove marker */
+      marker.setMap(null);
+      delete marker;
+    }
+  }
+  function renderMarkerAtLocations(marker, locations, delayInMilliseconds) {
+    if (
+      marker && marker.setPosition &&
+      locations && locations.length &&
+      (delayInMilliseconds !== 'undefined')
+    ) {
+      renderMarkerAtLocationsHelper(marker, locations, delayInMilliseconds);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * renderCarAtLocations
+   * Renders a car icon at several different locations (emulating movement).
+   * @param {Array} locations An array of lat/lng pair objects in sequential order.
+   * @param {integer} delayInMilliseconds The delay between frames in milliseconds.
+   * @returns {boolean} Whether or not the input values are valid.
+   */
+  function renderCarAtLocations(locations, delayInMilliseconds) {
+    var marker = new window.google.maps.Marker({
+      draggable: false,
+      icon:      '/images/ic_directions_car_black_24px.svg',
+      map:       null,
+      position:  (new window.google.maps.LatLng(0, 0)),
+      title:     'Car'
+    });
+    return renderMarkerAtLocations(marker, locations, delayInMilliseconds);
+  }
+
 
   /*================*/
   /* Event Handlers */
@@ -164,7 +219,8 @@ window.MapComponent = (function (window, document, log) {
     getLocationEnd:               getLocationEnd,
     onChangeLocationBeginElement: onChangeLocationBeginElement,
     onChangeLocationEndElement:   onChangeLocationEndElement,
-    onGoogleMapsResponse:         onGoogleMapsResponse
+    onGoogleMapsResponse:         onGoogleMapsResponse,
+    renderCarAtLocations:         renderCarAtLocations
   };
 
 })(window, window.document, (window.LogComponent ? window.LogComponent.log : console.log));
