@@ -1,6 +1,8 @@
 # lyft-node-starter-kit
-Starter kit for Lyft's public API with node.
+Node-based starter kit for building an application with Lyft's public API.
 
 ### Resources
-- [Gogole Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial)
+- [Lyft Developer Portal](https://www.lyft.com/developers)
+- [Lyft Public API Documentation](https://developer.lyft.com/docs)
+- [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/tutorial)
 - [Google Material Icons](https://design.google.com/icons/)
