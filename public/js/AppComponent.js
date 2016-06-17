@@ -1,7 +1,7 @@
 /**
  * App Component
  */
-window.AppComponent = (function (window, document, log) {
+window.AppComponent = (function (window, document, log, map) {
 
   /*============*/
   /* Properties */
@@ -53,6 +53,9 @@ window.AppComponent = (function (window, document, log) {
         responseJson = window.JSON.parse(event.target.response);
         for (var i = 0, l = responseJson.nearby_drivers.length; i < l; i++) {
           log(responseJson.nearby_drivers[i].ride_type + ': ' + responseJson.nearby_drivers[i].drivers.length + ' drivers');
+          for (var j = 0, m = responseJson.nearby_drivers[i].drivers.length; j < m; j++) {
+            map.renderCarAtLocations(responseJson.nearby_drivers[i].drivers[j].locations, 1000);
+          }
         }
       }
     });
@@ -145,4 +148,4 @@ window.AppComponent = (function (window, document, log) {
     getApiLyftStatus:    getApiLyftStatus
   };
 
-})(window, window.document, (window.LogComponent ? window.LogComponent.log : console.log));
+})(window, window.document, (window.LogComponent ? window.LogComponent.log : console.log), window.MapComponent);
