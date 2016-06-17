@@ -4,10 +4,10 @@ if (isNaN(CONFIG_PORT)) {
   process.exit(1);
 }
 
-var CONFIG_USE_SANDBOX =
-  typeof process.env.CONFIG_USE_SANDBOX !== 'undefined' ?
-  process.env.CONFIG_USE_SANDBOX :
-  true;
+var CONFIG_USE_SANDBOX = (
+  process.env.CONFIG_USE_SANDBOX === false ||
+  process.env.CONFIG_USE_SANDBOX === 'false'
+) ? false : true;
 
 module.exports = {
   GOOGLE_API_KEY:     process.env.CONFIG_GOOGLE_API_KEY     || null,
