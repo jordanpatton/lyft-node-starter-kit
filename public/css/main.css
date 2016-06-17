@@ -43,6 +43,9 @@ button[type="button"] {
   margin: 0;
   padding: 0;
 }
+#log > h3 > a {
+  text-decoration: none;
+}
 #logTarget {
   box-sizing: border-box;
   display: block;

@@ -15,7 +15,12 @@ html
     div(class="container")
       div(id="map")
       div(id="log")
-        h3 Log
+        h3 Log&nbsp;
+          a(
+            href="#",
+            onclick="javascript:window.LogComponent.clear();return false;"
+            title="Clear Log"
+          ) (Clear)
         form(id="logForm", name="logForm")
           textarea(id="logTarget", name="logTarget", rows="5")
       div(id="locations")
@@ -72,6 +77,11 @@ html
                 onclick="javascript:window.AppComponent.getApiLyftEta(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
                 title="Get ETA"
               ) Get ETA
+              button(
+                type="button",
+                onclick="javascript:window.AppComponent.getApiLyftRideTypes(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
+                title="Get Ride Types"
+              ) Get Ride Types
               button(
                 type="button",
                 onclick="javascript:window.AppComponent.getApiLyftProfile();return false;",

@@ -16,6 +16,18 @@ window.LogComponent = (function (window, document) {
   /* Methods */
   /*=========*/
 
+  function clear() {
+    /* clear browser console */
+    if (shouldLogToConsole && console && console.clear) {
+      console.clear();
+    }
+    /* clear app console */
+    if (shouldLogToElement) {
+      element.value = '';
+      element.scrollTop = element.scrollHeight;
+    }
+  }
+
   function log() {
     /* log to browser console */
     if (shouldLogToConsole && console && console.log) {
@@ -37,7 +49,8 @@ window.LogComponent = (function (window, document) {
   /*=======================================*/
 
   return {
-    log: log
+    clear: clear,
+    log:   log
   };
 
 })(window, window.document);

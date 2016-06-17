@@ -50,11 +50,12 @@ app.get('/api/status', apiController.getStatus);
 app.get('/api/users',  apiController.getUsers);
 
 /* express routing: lyft api */
-app.get('/api/lyft/drivers', apiLyftController.getDrivers);
-app.get('/api/lyft/eta',     apiLyftController.getEta);
-app.get('/api/lyft/profile', apiLyftController.getProfile);
-app.get('/api/lyft/rides',   apiLyftController.getRides);
-app.get('/api/lyft/status',  apiLyftController.getStatus);
+app.get('/api/lyft/drivers',   apiLyftController.getDrivers);
+app.get('/api/lyft/eta',       apiLyftController.getEta);
+app.get('/api/lyft/profile',   apiLyftController.getProfile);
+app.get('/api/lyft/rides',     apiLyftController.getRides);
+app.get('/api/lyft/ridetypes', apiLyftController.getRideTypes);
+app.get('/api/lyft/status',    apiLyftController.getStatus);
 
 /* express routing: lyft oauth */
 app.all('/oauth/lyft/authorization', oauthLyftController.handleAuthorization);

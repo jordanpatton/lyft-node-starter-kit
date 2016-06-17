@@ -85,6 +85,15 @@ exports.getRides = function (req, res, next) {
   });
 };
 
+exports.getRideTypes = function (req, res, next) {
+  requestWithBearerToken(res, {
+    method: 'GET',
+    uri: config.LYFT_API_URI + '/v1/ridetypes',
+    json: true,
+    qs: {lat: req.query.lat, lng: req.query.lng}
+  });
+};
+
 exports.getStatus = function (req, res, next) {
   request.get(config.LYFT_API_URI + '/v1', function (error, response, body) {
     if (error) {

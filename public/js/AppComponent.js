@@ -51,7 +51,6 @@ window.AppComponent = (function (window, document, log) {
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
       if (event.target.readyState === 4) {
         responseJson = window.JSON.parse(event.target.response);
-        console.log(responseJson);
         for (var i = 0, l = responseJson.nearby_drivers.length; i < l; i++) {
           log(responseJson.nearby_drivers[i].ride_type + ': ' + responseJson.nearby_drivers[i].drivers.length + ' drivers');
         }
@@ -103,6 +102,21 @@ window.AppComponent = (function (window, document, log) {
     xhr.send();
   }
 
+  function getApiLyftRideTypes(latitude, longitude, callback) {
+    var xhr = new window.XMLHttpRequest();
+    xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
+      if (event.target.readyState === 4) {
+        responseJson = window.JSON.parse(event.target.response);
+        console.log(responseJson);
+        for (var i = 0, l = responseJson.ride_types.length; i < l; i++) {
+          log(responseJson.ride_types[i].display_name + ': ' + responseJson.ride_types[i].seats + ' seats');
+        }
+      }
+    });
+    xhr.open('GET', '/api/lyft/ridetypes?lat='+latitude+'&lng='+longitude, true);
+    xhr.send();
+  }
+
   function getApiLyftStatus(callback) {
     var xhr = new window.XMLHttpRequest();
     xhr.onreadystatechange = (typeof callback === 'function') ? callback : (function (event) {
@@ -121,13 +135,14 @@ window.AppComponent = (function (window, document, log) {
   /*=======================================*/
 
   return {
-    getApiStatus:      getApiStatus,
-    getApiUsers:       getApiUsers,
-    getApiLyftDrivers: getApiLyftDrivers,
-    getApiLyftEta:     getApiLyftEta,
-    getApiLyftProfile: getApiLyftProfile,
-    getApiLyftRides:   getApiLyftRides,
-    getApiLyftStatus:  getApiLyftStatus
+    getApiStatus:        getApiStatus,
+    getApiUsers:         getApiUsers,
+    getApiLyftDrivers:   getApiLyftDrivers,
+    getApiLyftEta:       getApiLyftEta,
+    getApiLyftProfile:   getApiLyftProfile,
+    getApiLyftRides:     getApiLyftRides,
+    getApiLyftRideTypes: getApiLyftRideTypes,
+    getApiLyftStatus:    getApiLyftStatus
   };
 
 })(window, window.document, (window.LogComponent ? window.LogComponent.log : console.log));
