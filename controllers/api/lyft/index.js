@@ -59,6 +59,19 @@ exports.getDrivers = function (req, res, next) {
   });
 };
 
+exports.getCost = function (req, res, next) {
+  var queryParameters = {start_lat: req.query.start_lat, start_lng: req.query.start_lng};
+  if (typeof req.query.end_lat !== 'undefined') {queryParameters.end_lat = req.query.end_lat;}
+  if (typeof req.query.end_lng !== 'undefined') {queryParameters.end_lng = req.query.end_lng;}
+  if (typeof req.query.ride_type !== 'undefined') {queryParameters.ride_type = req.query.ride_type;}
+  requestWithBearerToken(res, {
+    method: 'GET',
+    uri: config.LYFT_API_URI + '/v1/cost',
+    json: true,
+    qs: queryParameters
+  });
+};
+
 exports.getEta = function (req, res, next) {
   requestWithBearerToken(res, {
     method: 'GET',
