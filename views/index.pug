@@ -69,48 +69,49 @@ html
             li
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftDrivers(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
-                title="Get Nearby Drivers"
-              ) Get Nearby Drivers
+                onclick="javascript:window.AppComponent.showDrivers(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
+                title="Show Drivers"
+              ) Show Drivers
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftEta(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
+                onclick="javascript:window.ApiComponent.getApiLyftEta(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
                 title="Get ETA"
               ) Get ETA
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftRideTypes(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
+                onclick="javascript:window.ApiComponent.getApiLyftRideTypes(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
                 title="Get Ride Types"
               ) Get Ride Types
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftProfile();return false;",
+                onclick="javascript:window.ApiComponent.getApiLyftProfile();return false;",
                 title="Get User Profile"
               ) Get User Profile
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftRides();return false;",
+                onclick="javascript:window.ApiComponent.getApiLyftRides();return false;",
                 title="Get Ride History"
               ) Get Ride History
             li
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiStatus();return false;",
+                onclick="javascript:window.ApiComponent.getApiStatus();return false;",
                 title="Get Local Server Status"
               ) Get Local Server Status
             li
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiLyftStatus();return false;",
+                onclick="javascript:window.ApiComponent.getApiLyftStatus();return false;",
                 title="Get Remote Server Status"
               ) Get Remote Server Status
             li
               button(
                 type="button",
-                onclick="javascript:window.AppComponent.getApiUsers();return false;",
+                onclick="javascript:window.ApiComponent.getApiUsers();return false;",
                 title="Get User Details"
               ) Get User Details
     script(src="/js/LogComponent.js")
     script(src="/js/MapComponent.js")
+    script(src="/js/ApiComponent.js")
     script(src="/js/AppComponent.js")
     script(async, defer, src="https://maps.googleapis.com/maps/api/js?callback=window.MapComponent.onGoogleMapsResponse"+(GOOGLE_API_KEY?("&key="+GOOGLE_API_KEY):""))

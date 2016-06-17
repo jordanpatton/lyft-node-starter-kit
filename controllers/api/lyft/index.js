@@ -24,18 +24,24 @@ var requestWithBearerToken = function (res, options, callback) {
     }
   }, function (preAuthError, preAuthResponse, preAuthBody) {
     if (preAuthError) {
-      res.json({meta: {success: false, error: preAuthError}});
+      res
+        .status(preAuthResponse.statusCode)
+        .json({meta: {success: false, error: preAuthError}});
     } else {
       /* begin: post-auth request */
       options = options || {};
       options.auth = options.auth || {bearer: preAuthBody.access_token};
       callback = callback || function (postAuthError, postAuthResponse, postAuthBody) {
         if (postAuthError) {
-          res.json({meta: {success: false, error: postAuthError}});
+          res
+            .status(postAuthResponse.statusCode)
+            .json({meta: {success: false, error: postAuthError}});
         } else {
           postAuthBody = postAuthBody || {};
           postAuthBody.meta = {success: true};
-          res.json(postAuthBody);
+          res
+            .status(postAuthResponse.statusCode)
+            .json(postAuthBody);
         }
       };
       request(options, callback);
@@ -110,10 +116,14 @@ exports.getRideTypes = function (req, res, next) {
 exports.getStatus = function (req, res, next) {
   request.get(config.LYFT_API_URI + '/v1', function (error, response, body) {
     if (error) {
-      res.json({meta: {success: false, error: error}, status: 'unhappy'});
+      res
+        .status(400)
+        .json({meta: {success: false, error: error}, status: 'unhappy'});
     } else {
       var timestamp = response.headers['date'] ? (new Date(response.headers['date'])).getTime() : '';
-      res.json({meta: {success: true, timestamp: timestamp}, status: 'happy'});
+      res
+        .status(200)
+        .json({meta: {success: true, timestamp: timestamp}, status: 'happy'});
     }
   });
 };
