@@ -89,7 +89,7 @@ window.MapComponent = (function (window, document, log) {
    * @param {Object} marker A google.maps.marker.
    * @param {Array} locations An array of lat/lng pair objects in sequential order.
    * @param {integer} delayInMilliseconds The delay between frames in milliseconds.
-   * @returns {boolean} Whether or not the input values are valid.
+   * @returns {boolean} result Whether or not the input values are valid.
    */
   function renderMarkerAtLocationsHelper(marker, locations, delayInMilliseconds) {
     if (locations.length) {
@@ -125,7 +125,7 @@ window.MapComponent = (function (window, document, log) {
    * Renders a car icon at several different locations (emulating movement).
    * @param {Array} locations An array of lat/lng pair objects in sequential order.
    * @param {integer} delayInMilliseconds The delay between frames in milliseconds.
-   * @returns {boolean} Whether or not the input values are valid.
+   * @returns {boolean} result Whether or not the input values are valid.
    */
   function renderCarAtLocations(locations, delayInMilliseconds) {
     var marker = new window.google.maps.Marker({
