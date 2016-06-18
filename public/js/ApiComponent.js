@@ -63,6 +63,20 @@ window.ApiComponent = (function (window, document, log) {
   /* Lyft API Methods */
   /*==================*/
 
+  function getApiLyftCost(startLatitude, startLongitude, endLatitude, endLongitude, rideType, successCallback, failureCallback) {
+    successCallback = successCallback || function (res) {
+      for (var i = 0, l = res.cost_estimates.length; i < l; i++) {
+        //log(res.cost_estimates[i].ride_type + ': $' + parseFloat(res.cost_estimates[i].estimated_cost_cents_min) + ' -- $' + parseFloat(res.cost_estimates[i].estimated_cost_cents_max));
+        log(res.cost_estimates[i].ride_type + ': ' + res.cost_estimates[i].primetime_percentage + ' primetime');
+      }
+    };
+    var url = '/api/lyft/cost?start_lat='+startLatitude+'&start_lng='+startLongitude;
+    if (endLatitude)  {url += '&end_lat='+endLatitude;}
+    if (endLongitude) {url += '&end_lng='+endLongitude;}
+    if (rideType)     {url += '&ride_type='+rideType;}
+    return requestJson('GET', url, successCallback, failureCallback);
+  }
+
   function getApiLyftDrivers(latitude, longitude, successCallback, failureCallback) {
     successCallback = successCallback || function (res) {
       for (var i = 0, l = res.nearby_drivers.length; i < l; i++) {
@@ -75,7 +89,7 @@ window.ApiComponent = (function (window, document, log) {
   function getApiLyftEta(latitude, longitude, successCallback, failureCallback) {
     successCallback = successCallback || function (res) {
       for (var i = 0, l = res.eta_estimates.length; i < l; i++) {
-        log(res.eta_estimates[i].display_name + ': ' + res.eta_estimates[i].eta_seconds + ' seconds');
+        log(res.eta_estimates[i].ride_type + ': ' + res.eta_estimates[i].eta_seconds + ' seconds');
       }
     };
     return requestJson('GET', '/api/lyft/eta?lat='+latitude+'&lng='+longitude, successCallback, failureCallback);
@@ -102,7 +116,7 @@ window.ApiComponent = (function (window, document, log) {
   function getApiLyftRideTypes(latitude, longitude, successCallback, failureCallback) {
     successCallback = successCallback || function (res) {
       for (var i = 0, l = res.ride_types.length; i < l; i++) {
-        log(res.ride_types[i].display_name + ': ' + res.ride_types[i].seats + ' seats');
+        log(res.ride_types[i].ride_type + ': ' + res.ride_types[i].seats + ' seats');
       }
     };
     requestJson('GET', '/api/lyft/ridetypes?lat='+latitude+'&lng='+longitude, successCallback, failureCallback);
@@ -123,6 +137,7 @@ window.ApiComponent = (function (window, document, log) {
   return {
     getApiStatus:        getApiStatus,
     getApiUsers:         getApiUsers,
+    getApiLyftCost:      getApiLyftCost,
     getApiLyftDrivers:   getApiLyftDrivers,
     getApiLyftEta:       getApiLyftEta,
     getApiLyftProfile:   getApiLyftProfile,

@@ -69,6 +69,11 @@ html
             li
               button(
                 type="button",
+                onclick="javascript:window.ApiComponent.getApiLyftCost(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
+                title="Get Cost"
+              ) Get Cost
+              button(
+                type="button",
                 onclick="javascript:window.AppComponent.showDrivers(window.MapComponent.getLocationBegin().latitude, window.MapComponent.getLocationBegin().longitude);return false;",
                 title="Show Drivers"
               ) Show Drivers
