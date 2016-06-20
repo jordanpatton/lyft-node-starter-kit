@@ -14,8 +14,28 @@ html
   body
     div(class="container")
       div(id="map")
+      div(id="locations")
+        h3 Locations
+        form(id="locationsForm", name="locationsForm")
+          input(
+            type="text",
+            id="locationBegin",
+            name="locationBegin",
+            onchange="javascript:window.MapComponent.onChangeLocationBeginElement.apply(this, arguments);return false;",
+            placeholder="Pick Up Location",
+            title="Pick Up Location"
+          )
+          input(
+            type="text",
+            id="locationEnd",
+            name="locationEnd",
+            onchange="javascript:window.MapComponent.onChangeLocationEndElement.apply(this, arguments);return false;",
+            placeholder="Drop Off Location",
+            title="Drop Off Location"
+          )
       div(id="log")
-        h3 Log&nbsp;
+        h3 Log
+          | &nbsp;
           a(
             href="#",
             onclick="javascript:window.LogComponent.clear();return false;"
@@ -23,28 +43,6 @@ html
           ) (Clear)
         form(id="logForm", name="logForm")
           textarea(id="logTarget", name="logTarget", rows="5")
-      div(id="locations")
-        h3 Locations
-        form(id="locationsForm", name="locationsForm")
-          ul
-            li
-              input(
-                type="text",
-                id="locationBegin",
-                name="locationBegin",
-                onchange="javascript:window.MapComponent.onChangeLocationBeginElement.apply(this, arguments);return false;",
-                placeholder="Pick Up Location",
-                title="Pick Up Location"
-              )
-            li
-              input(
-                type="text",
-                id="locationEnd",
-                name="locationEnd",
-                onchange="javascript:window.MapComponent.onChangeLocationEndElement.apply(this, arguments);return false;",
-                placeholder="Drop Off Location",
-                title="Drop Off Location"
-              )
       div(id="controls")
         h3 Controls
         form(id="controlsForm", name="controlsForm")
