@@ -17,7 +17,9 @@ window.ApiComponent = (function (window, document, log) {
   function requestJson(method, url, successCallback, failureCallback) {
     successCallback = successCallback || console.log;
     failureCallback = failureCallback || console.error || console.warn || console.log;
-    var xhr = new window.XMLHttpRequest();
+    var xhr = (typeof XDomainRequest !== 'undefined') ?
+      (new XDomainRequest()) :
+      (new XMLHttpRequest());
     xhr.onreadystatechange = function (event) {
       if (event.target.readyState === 4) {
         /* parse response as JSON */
