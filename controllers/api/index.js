@@ -1,6 +1,6 @@
-/*================*/
+/* ============== */
 /* Route Handlers */
-/*================*/
+/* ============== */
 
 exports.getStatus = function (req, res, next) {
   res

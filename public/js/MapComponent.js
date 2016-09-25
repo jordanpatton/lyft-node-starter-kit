@@ -3,9 +3,9 @@
  */
 window.MapComponent = (function (window, document, log) {
 
-  /*============*/
+  /* ========== */
   /* Properties */
-  /*============*/
+  /* ========== */
 
   var defaultLatitude      = 37.760516;
   var defaultLongitude     = -122.413126;
@@ -17,9 +17,9 @@ window.MapComponent = (function (window, document, log) {
   var mapObject;
 
 
-  /*=====================*/
+  /* =================== */
   /* Convenience Methods */
-  /*=====================*/
+  /* =================== */
 
   function forwardGeocode(address, callback) {
     var geocoder = new window.google.maps.Geocoder();
@@ -59,9 +59,9 @@ window.MapComponent = (function (window, document, log) {
   }
 
 
-  /*=============*/
+  /* =========== */
   /* Map Methods */
-  /*=============*/
+  /* =========== */
 
   function initializeMap(latitude, longitude, element) {
     return new window.google.maps.Map(element, {
@@ -139,9 +139,9 @@ window.MapComponent = (function (window, document, log) {
   }
 
 
-  /*================*/
+  /* ============== */
   /* Event Handlers */
-  /*================*/
+  /* ============== */
 
   function onChangeLocationBeginElement(event) {
     forwardGeocode(event.target.value, function (results, status) {
@@ -210,9 +210,9 @@ window.MapComponent = (function (window, document, log) {
   }
 
 
-  /*=======================================*/
+  /* ===================================== */
   /* Publicly-Exposed Properties & Methods */
-  /*=======================================*/
+  /* ===================================== */
 
   return {
     getLocationBegin:             getLocationBegin,

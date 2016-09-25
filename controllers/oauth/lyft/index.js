@@ -2,9 +2,9 @@
 var config = require('../../../config/config');
 
 
-/*================*/
+/* ============== */
 /* Route Handlers */
-/*================*/
+/* ============== */
 
 exports.handleAuthorization = function (req, res, next) {
   /* generate state value */

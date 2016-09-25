@@ -3,18 +3,18 @@
  */
 window.LogComponent = (function (window, document) {
 
-  /*============*/
+  /* ========== */
   /* Properties */
-  /*============*/
+  /* ========== */
 
   var element = document.getElementById('logTarget');
   var shouldLogToConsole = true;
   var shouldLogToElement = true;
 
 
-  /*=========*/
+  /* ======= */
   /* Methods */
-  /*=========*/
+  /* ======= */
 
   function clear() {
     /* clear browser console */
@@ -44,9 +44,9 @@ window.LogComponent = (function (window, document) {
   }
 
 
-  /*=======================================*/
+  /* ===================================== */
   /* Publicly-Exposed Properties & Methods */
-  /*=======================================*/
+  /* ===================================== */
 
   return {
     clear: clear,

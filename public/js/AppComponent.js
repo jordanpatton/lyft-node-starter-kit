@@ -3,16 +3,16 @@
  */
 window.AppComponent = (function (window, document, api, log, map) {
 
-  /*============*/
+  /* ========== */
   /* Properties */
-  /*============*/
+  /* ========== */
 
   /* none at this time */
 
 
-  /*=========*/
+  /* ======= */
   /* Methods */
-  /*=========*/
+  /* ======= */
 
   function showDrivers(latitude, longitude) {
     return api.getApiLyftDrivers(latitude, longitude, function (res) {
@@ -25,9 +25,9 @@ window.AppComponent = (function (window, document, api, log, map) {
   }
 
 
-  /*=======================================*/
+  /* ===================================== */
   /* Publicly-Exposed Properties & Methods */
-  /*=======================================*/
+  /* ===================================== */
 
   return {
     showDrivers: showDrivers

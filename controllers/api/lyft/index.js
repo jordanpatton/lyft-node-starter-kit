@@ -5,9 +5,9 @@ var request = require('request');
 var config = require('../../../config/config');
 
 
-/*================*/
+/* ============== */
 /* Helper Methods */
-/*================*/
+/* ============== */
 
 var requestWithBearerToken = function (res, options, callback) {
   /* begin: pre-auth request */
@@ -52,9 +52,9 @@ var requestWithBearerToken = function (res, options, callback) {
 };
 
 
-/*================*/
+/* ============== */
 /* Route Handlers */
-/*================*/
+/* ============== */
 
 exports.getDrivers = function (req, res, next) {
   requestWithBearerToken(res, {

@@ -3,16 +3,16 @@
  */
 window.ApiComponent = (function (window, document, log) {
 
-  /*============*/
+  /* ========== */
   /* Properties */
-  /*============*/
+  /* ========== */
 
   /* none at this time */
 
 
-  /*=====================*/
+  /* =================== */
   /* Convenience Methods */
-  /*=====================*/
+  /* =================== */
 
   function requestJson(method, url, successCallback, failureCallback) {
     successCallback = successCallback || console.log;
@@ -37,9 +37,9 @@ window.ApiComponent = (function (window, document, log) {
   }
 
 
-  /*=============*/
+  /* =========== */
   /* API Methods */
-  /*=============*/
+  /* =========== */
 
   function getApiStatus(successCallback, failureCallback) {
     successCallback = successCallback || function (res) {
@@ -59,9 +59,9 @@ window.ApiComponent = (function (window, document, log) {
   }
 
 
-  /*==================*/
+  /* ================ */
   /* Lyft API Methods */
-  /*==================*/
+  /* ================ */
 
   function getApiLyftCost(startLatitude, startLongitude, endLatitude, endLongitude, rideType, successCallback, failureCallback) {
     successCallback = successCallback || function (res) {
@@ -130,9 +130,9 @@ window.ApiComponent = (function (window, document, log) {
   }
 
 
-  /*=======================================*/
+  /* ===================================== */
   /* Publicly-Exposed Properties & Methods */
-  /*=======================================*/
+  /* ===================================== */
 
   return {
     getApiStatus:        getApiStatus,
