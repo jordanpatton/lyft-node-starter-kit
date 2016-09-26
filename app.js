@@ -40,7 +40,7 @@ app.use(
   )
 );
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  /* miscellaneous response headers */
   res.setHeader('Cache-Control', 'no-cache');
   next();
 });
